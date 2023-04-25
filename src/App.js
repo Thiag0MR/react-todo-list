@@ -8,11 +8,16 @@ function App() {
   const [userInput, setUserInput] = useState();
   const [selectedFilter, setSelectedFilter] = useState("all");
 
+  function addNewTodo(newTodo) {
+    setTodoList([...todoList, newTodo]);
+  }
+
   return (
     <div className="todo-app">
       <h1>Todo List</h1>
       <InputForm userInput={userInput}
-                 setUserInput={setUserInput}/>
+                 setUserInput={setUserInput}
+                 addNewTodo={addNewTodo}/>
       <FilterSelect selectedFilter={selectedFilter}
                     setSelectedFilter={setSelectedFilter}/>
       <TodoList todoList={todoList}/>
