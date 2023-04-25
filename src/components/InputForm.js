@@ -6,8 +6,7 @@ function InputForm(props) {
         props.setUserInput(newUserInput);
     }
     function handleDateChange(event) {
-        const date = new Date(event.target.value);
-        const formattedDate = date.toISOString().substring(0, 10);
+        const formattedDate = getFormattedDate(new Date(event.target.value));
         const newUserInput = {...props.userInput, dueDate: formattedDate};
         props.setUserInput(newUserInput);
     }
@@ -15,11 +14,17 @@ function InputForm(props) {
         event.preventDefault();
         const newTodo = {...props.userInput, isCompleted: false, id: Date.now()};
         props.addNewTodo(newTodo);
+        clearInputFields();
     }
     function handleClickEdit(event) {
         event.preventDefault();
         const updatedTodo = {...props.userInput};
         props.addUpdatedTodo(updatedTodo);
+        clearInputFields();
+    }
+    function clearInputFields() {
+        const formattedDate = getFormattedDate(new Date());
+        props.setUserInput({text: "", dueDate: formattedDate});        
     }
 
     if (props.editMode) {
@@ -42,9 +47,10 @@ function InputForm(props) {
     )
 }
 
-const date = new Date();
-const formattedDate = date.toISOString().substring(0, 10);
-console.log(formattedDate);
+function getFormattedDate(date) {
+    return date.toISOString().substring(0, 10);
+} 
+const formattedDate = getFormattedDate(new Date()); 
 
 InputForm.defaultProps = {
     userInput: {

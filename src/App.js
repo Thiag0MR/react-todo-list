@@ -14,7 +14,6 @@ function App() {
 
   function addNewTodo(newTodo) {
     setTodoList([...todoList, newTodo]);
-    setUserInput({text: "", dueDate: userInput.dueDate});
   }
   function addUpdatedTodo(updatedTodo) {
     const newTodoList = todoList.map(todo => {
@@ -22,7 +21,6 @@ function App() {
     });
     setTodoList(newTodoList);
     setEditMode(false);
-    setUserInput({text: "", dueDate: userInput.dueDate});
   }
 
   function deleteTodo(id) {
