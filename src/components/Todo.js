@@ -2,7 +2,7 @@ function Todo(props) {
     return (
         <div className="todo">
             <input type="checkbox"/> 
-            <p>Todo item</p>
+            <pre>{props.id} {props.text} {Date.parse(props.dueDate)} isCompleted: {String(props.isCompleted)}</pre>
         </div>
     );
 }
