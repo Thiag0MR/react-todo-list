@@ -7,10 +7,9 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [userInput, setUserInput] = useState();
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [editMode, setEditMode] = useState(false);
 
   const filteredList = setFilteredList(todoList, selectedFilter);
-
-  const [editMode, setEditMode] = useState(false);
 
   function addNewTodo(newTodo) {
     setTodoList([...todoList, newTodo]);
@@ -32,6 +31,11 @@ function App() {
     const todoToBeEdited = todoList.find(todo => todo.id === id);
     setUserInput(todoToBeEdited);
     setEditMode(true);
+  }
+
+  function clearCompletedTodos() {
+    const newTodoList = todoList.filter(todo => !todo.isCompleted);
+    setTodoList(newTodoList);
   }
 
   function setFilteredList(todoList, selectedFilter) {
@@ -66,7 +70,8 @@ function App() {
       <TodoList todoList={filteredList}
                 setIsCompleted={setIsCompleted}
                 deleteTodo={deleteTodo}
-                editTodo={editTodo}/>
+                editTodo={editTodo}
+                clearCompletedTodos={clearCompletedTodos}/>
     </div>
   );
 }

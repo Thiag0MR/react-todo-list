@@ -8,10 +8,16 @@ function TodoList(props) {
                       deleteTodo={props.deleteTodo}
                       editTodo={props.editTodo}/>);
     });
+    const showClearCompletedButton = props.todoList.some(todo => todo.isCompleted);
+
+    function handleClick() {
+        props.clearCompletedTodos();
+    }
 
     return (
         <div className="todo-list">
             {todoList}
+            {showClearCompletedButton && <button onClick={handleClick}>Clear completed</button>}
         </div>
     );
 }
