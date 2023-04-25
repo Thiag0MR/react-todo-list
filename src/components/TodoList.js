@@ -5,7 +5,8 @@ function TodoList(props) {
         return (<Todo {...todo} 
                       key={todo.id}
                       setIsCompleted={props.setIsCompleted}
-                      deleteTodo={props.deleteTodo}/>);
+                      deleteTodo={props.deleteTodo}
+                      editTodo={props.editTodo}/>);
     });
 
     return (

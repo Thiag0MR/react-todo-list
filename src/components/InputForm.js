@@ -1,4 +1,6 @@
 function InputForm(props) {
+    let button;
+
     function handleTextChange(event) {
         const newUserInput = {...props.userInput, text: event.target.value};
         props.setUserInput(newUserInput);
@@ -9,11 +11,23 @@ function InputForm(props) {
         const newUserInput = {...props.userInput, dueDate: formattedDate};
         props.setUserInput(newUserInput);
     }
-    function handleClick(event) {
+    function handleClickAdd(event) {
         event.preventDefault();
-        let newTodo = {...props.userInput, isCompleted: false, id: Date.now()};
+        const newTodo = {...props.userInput, isCompleted: false, id: Date.now()};
         props.addNewTodo(newTodo);
     }
+    function handleClickEdit(event) {
+        event.preventDefault();
+        const updatedTodo = {...props.userInput};
+        props.addUpdatedTodo(updatedTodo);
+    }
+
+    if (props.editMode) {
+        button = <button onClick={handleClickEdit}>Edit</button>        
+    } else {
+        button = <button onClick={handleClickAdd}>Add</button>
+    }
+
     return (
         <form className="input-form">
             <input type="text" 
@@ -23,7 +37,7 @@ function InputForm(props) {
             <input type="date"
                    value={props.userInput.dueDate}
                    onChange={handleDateChange}/>
-            <button onClick={handleClick}>Add</button>
+            {button}
         </form>
     )
 }
