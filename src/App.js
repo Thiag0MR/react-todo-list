@@ -25,6 +25,13 @@ function App() {
     return filteredList.sort((a, b) => Date.parse(a.dueDate) - Date.parse(b.dueDate));
   }
 
+  function setIsCompleted(id) {
+    const newTodoList = todoList.map(todo => {
+      return todo.id === id ? {...todo, isCompleted: !todo.isCompleted} : todo;
+    });
+    setTodoList(newTodoList);
+  }
+
   return (
     <div className="todo-app">
       <h1>Todo List</h1>
@@ -34,7 +41,8 @@ function App() {
       <FilterSelect selectedFilter={selectedFilter}
                     setSelectedFilter={setSelectedFilter}
                     total={filteredList.length}/>
-      <TodoList todoList={filteredList}/>
+      <TodoList todoList={filteredList}
+                setIsCompleted={setIsCompleted}/>
     </div>
   );
 }
