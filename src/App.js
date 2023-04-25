@@ -14,6 +14,11 @@ function App() {
     setTodoList([...todoList, newTodo]);
   }
 
+  function deleteTodo(id) {
+    const newTodoList = todoList.filter(todo => todo.id !== id);
+    setTodoList(newTodoList);
+  }
+
   function setFilteredList(todoList, selectedFilter) {
     let filteredList = [];
     switch (selectedFilter) {
@@ -42,7 +47,8 @@ function App() {
                     setSelectedFilter={setSelectedFilter}
                     total={filteredList.length}/>
       <TodoList todoList={filteredList}
-                setIsCompleted={setIsCompleted}/>
+                setIsCompleted={setIsCompleted}
+                deleteTodo={deleteTodo}/>
     </div>
   );
 }

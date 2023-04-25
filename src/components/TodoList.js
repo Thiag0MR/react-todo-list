@@ -4,7 +4,8 @@ function TodoList(props) {
     const todoList = props.todoList.map((todo) => {
         return (<Todo {...todo} 
                       key={todo.id}
-                      setIsCompleted={props.setIsCompleted}/>);
+                      setIsCompleted={props.setIsCompleted}
+                      deleteTodo={props.deleteTodo}/>);
     });
 
     return (
