@@ -1,9 +1,13 @@
 function FilterSelect(props) {
+    function handleChange(event) {
+        props.setSelectedFilter(event.target.value);
+    }
+
     return (
         <div className="filter-select">
-            <span>Total:</span>
+            <span>Total: {props.total}</span>
             <label htmlFor="filterTodo">
-                <select>
+                <select value={props.selectedFilter} onChange={handleChange}>
                     <option value="all">All</option>
                     <option value="completed">Completed</option>
                     <option value="pending">Pending</option>
