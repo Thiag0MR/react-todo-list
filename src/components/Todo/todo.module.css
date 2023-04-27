@@ -1,0 +1,58 @@
+.todo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    box-shadow: 4px 4px 5px #ededed;
+    padding: 20px 15px;
+    margin: 10px 0;
+}
+
+.textContainer {
+    min-width: 120px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 5px;
+}
+
+.text {
+    min-width: 100px;
+    overflow-wrap: break-word;
+}
+
+.dueDate {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.buttons {
+    min-width: 60px;
+    height: 30px;
+    margin-left: 5px;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #3e3e3e;
+    width: 30px;
+    height: 30px;
+}
+
+.input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.input[type="checkbox"]:checked {
+    background-color: #ff643c;
+}
