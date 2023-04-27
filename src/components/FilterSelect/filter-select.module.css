@@ -1,0 +1,35 @@
+
+.filterSelect {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 20px;
+}
+
+.span {
+    font-size: 15px;
+    color: gray;
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+    color: gray;
+    margin-right: 15px;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.select {
+    background-color: #ebecef;
+    border: none;
+    padding: 5px;
+}
+
+.select:focus {
+    outline: none;
+}
