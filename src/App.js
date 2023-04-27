@@ -1,19 +1,33 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import InputForm from "./components/InputForm";
 import FilterSelect from "./components/FilterSelect";
 import TodoList from "./components/TodoList";
+import './App.css';
+
+const LOCAL_STORAGE_KEY = "todoList";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState(getTodoListFromLocalStorage());
   const [userInput, setUserInput] = useState();
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [editMode, setEditMode] = useState(false);
 
   const filteredList = setFilteredList(todoList, selectedFilter);
 
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoList));
+  }, [todoList]);
+
+  function getTodoListFromLocalStorage() {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const todoList = JSON.parse(saved);
+    return todoList ? todoList : [];
+  }
+
   function addNewTodo(newTodo) {
     setTodoList([...todoList, newTodo]);
   }
+  
   function addUpdatedTodo(updatedTodo) {
     const newTodoList = todoList.map(todo => {
       return updatedTodo.id === todo.id ? updatedTodo : todo;
@@ -66,12 +80,13 @@ function App() {
                  editMode={editMode}/>
       <FilterSelect selectedFilter={selectedFilter}
                     setSelectedFilter={setSelectedFilter}
-                    total={filteredList.length}/>
+                    todoList={filteredList}
+                    clearCompletedTodos={clearCompletedTodos}/>
+      <hr/>
       <TodoList todoList={filteredList}
                 setIsCompleted={setIsCompleted}
                 deleteTodo={deleteTodo}
-                editTodo={editTodo}
-                clearCompletedTodos={clearCompletedTodos}/>
+                editTodo={editTodo}/>
     </div>
   );
 }
