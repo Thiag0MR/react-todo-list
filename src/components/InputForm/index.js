@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import styles from './input-form.module.css';
 
 function InputForm(props) {
-    let button;
+    const [errorMessage, setErrorMessage] = useState("");
 
     function handleTextChange(event) {
         const newUserInput = {...props.userInput, text: event.target.value};
@@ -22,39 +23,51 @@ function InputForm(props) {
     }
     function handleClickAdd(event) {
         event.preventDefault();
+        if (!isInputValid(props.userInput.text)) {
+            setErrorMessage("Invalid input.");
+            return;
+        }
         const newTodo = {...props.userInput, isCompleted: false, id: Date.now(), color: getRandomColor()};
         props.addNewTodo(newTodo);
         clearInputFields();
+        setErrorMessage("");
     }
     function handleClickEdit(event) {
         event.preventDefault();
+        if (!isInputValid(props.userInput.text)) {
+            setErrorMessage("Invalid input.");
+            return;
+        }
         const updatedTodo = {...props.userInput};
         props.addUpdatedTodo(updatedTodo);
         clearInputFields();
+        setErrorMessage("");
     }
     function clearInputFields() {
         const formattedDate = getFormattedDate(new Date());
         props.setUserInput({text: "", dueDate: formattedDate});        
     }
-
-    if (props.editMode) {
-        button = <button className={styles.button} onClick={handleClickEdit}>Edit</button>        
-    } else {
-        button = <button className={styles.button} onClick={handleClickAdd}>Add</button>
+    function isInputValid(input) {
+        return input.trim().length === 0 ? false : true;
     }
 
     return (
         <form className={styles.inputForm}>
-            <input type="text" 
-                   className={styles.input}
-                   value={props.userInput.text}
-                   onChange={handleTextChange}
-                   placeholder="What do you want to do ?"/>
+            <div className={styles.divInput}>
+                <input type="text" 
+                    className={styles.input}
+                    value={props.userInput.text}
+                    onChange={handleTextChange}
+                    placeholder="What do you want to do ?"/>
+                <span className={styles.errorMessage}>{errorMessage}</span>
+            </div>
             <input type="date"
                    className={styles.input}
                    value={props.userInput.dueDate}
                    onChange={handleDateChange}/>
-            {button}
+            <button className={styles.button} onClick={props.editMode ? handleClickEdit : handleClickAdd}>
+                {props.editMode ? "Edit" : "Add"}
+            </button>
         </form>
     )
 }
